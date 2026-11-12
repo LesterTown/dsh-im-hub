@@ -1,0 +1,64 @@
+{
+  "name": "dsh-im-hub",
+  "version": "0.1.0",
+  "description": "跨 IM 统一底座：QQ(NapCat/OneBot) + 微信(WeChatFerry) 共用一个 AI 大脑，共享人设/长期记忆/会话",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "lib",
+    "sidecar",
+    "scripts",
+    "docs",
+    "client.js",
+    "cordis.patch.yml",
+    "locale",
+    "DESIGN.md"
+  ],
+  "scripts": {
+    "check": "node --check lib/index.js && node --check lib/brain.js && node --check lib/store.js && node --check lib/normalize.js && node --check lib/pipeline.js && node --check lib/adapters/qq.js && node --check lib/adapters/wechat.js && node --check client.js",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "im",
+    "qq",
+    "wechat",
+    "napcat",
+    "onebot",
+    "wcferry",
+    "wechatferry",
+    "memory"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.1-0 <0.3.0-0",
+    "@deepseek-ai/schemastery": "^3.18.1"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh": { "optional": true },
+    "@deepseek-ai/schemastery": { "optional": true }
+  },
+  "license": "MIT"
+}
